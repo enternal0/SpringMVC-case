@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+
+ <description>这是一个Java Spring MVC的简单项目</description>
+    
+    <!--配完之后Web项目就可以使用我们的SpringIoc了-->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:application-context.xml</param-value>
+    </context-param>
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    
+    <servlet>
+        <servlet-name>servlet</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <!--让它和SpringIOC达成关联,不要用默认名字-->
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:application-servlet.xml</param-value>
+        </init-param>
+        <!--一定要在这加他的配置，否则是不能解析它的-->
+        <multipart-config>
+            <max-file-size>20848820</max-file-size>
+            <max-request-size>418018841</max-request-size>
+            <file-size-threshold>1048576</file-size-threshold>
+        </multipart-config>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>servlet</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+    
+    <!--欢迎页面-->
+ <welcome-file-list>
+     <welcome-file>index.html</welcome-file>
+ </welcome-file-list>
+
+</web-app>
